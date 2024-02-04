@@ -11,7 +11,7 @@ public class SlicerMachine {
 	
 	// add one cucumber into the slicer chamber
 	synchronized void addOneCucumber() {
-		while(numOfCucumbers == 3){
+		while(numOfCucumbers == cucumbersNeededForOneSalad){
 			try {
 				wait();
 			}catch (InterruptedException e){
@@ -27,7 +27,7 @@ public class SlicerMachine {
 
 	// add one tomato into the slicer chamber
 	synchronized void addOneTomato() {
-		while(numOfTomatoes == 2){
+		while(numOfTomatoes == tomatoesNeededForOneSalad){
 			try {
 				wait();
 			}catch (InterruptedException e){
