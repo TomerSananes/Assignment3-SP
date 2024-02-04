@@ -7,8 +7,6 @@ public class Main {
         Gamer t2 = new Gamer(game);
         Judge j = new Judge(game);
         j.start();
-        t1.setPriority(Thread.MAX_PRIORITY);
-        t1.setPriority(Thread.MIN_PRIORITY);
         t1.start();
         t2.start();
 
