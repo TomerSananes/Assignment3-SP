@@ -1,20 +1,23 @@
+//Roni Kimhi 315298182, Tomer Sananes 207698986
+
 package assig3_3;
 
 public class SlicerMachine {
 	
-	int numOfCucumbers = 0;
-	int numOfTomatoes = 0;
-	int numOfPreparedSalads = 0;
+	private int numOfCucumbers = 0;
+	private int numOfTomatoes = 0;
+	private int numOfPreparedSalads = 0;
 	
 	final int cucumbersNeededForOneSalad = 3;
 	final int tomatoesNeededForOneSalad = 2;
 	
 	// add one cucumber into the slicer chamber
-	synchronized void addOneCucumber() {
+	public synchronized void addOneCucumber() {
 		while(numOfCucumbers == cucumbersNeededForOneSalad){
 			try {
 				wait();
 			}catch (InterruptedException e){
+				Thread.currentThread().interrupt();
 				break;
 			}
 		}
@@ -26,11 +29,12 @@ public class SlicerMachine {
 	}
 
 	// add one tomato into the slicer chamber
-	synchronized void addOneTomato() {
+	public synchronized void addOneTomato() {
 		while(numOfTomatoes == tomatoesNeededForOneSalad){
 			try {
 				wait();
 			}catch (InterruptedException e){
+				Thread.currentThread().interrupt();
 				break;
 			}
 		}
@@ -43,7 +47,7 @@ public class SlicerMachine {
 	
 	// if there are enough vegetables in the slicer
 	// chamber, make another salad
-	synchronized void sliceVegetables() {
+	public synchronized void sliceVegetables() {
 		while ((numOfCucumbers < cucumbersNeededForOneSalad) || (numOfTomatoes < tomatoesNeededForOneSalad)) {
 			try {
 				wait();
@@ -54,6 +58,8 @@ public class SlicerMachine {
 		makeNewSalad();
 	}
 
+	//private method called from sliceVegetables method
+	//preparing one salad, and update the variables
 	private void makeNewSalad() {
 		System.out.println("== preparing one more salad ==");
 		numOfPreparedSalads++; 
@@ -63,8 +69,7 @@ public class SlicerMachine {
 		notifyAll();
 	}	
 	
-	int getNumOfPreparedSalads() {
+	public synchronized int getNumOfPreparedSalads() {
 		return numOfPreparedSalads;
 	}
-
 }

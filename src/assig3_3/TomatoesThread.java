@@ -1,3 +1,5 @@
+//Roni Kimhi 315298182, Tomer Sananes 207698986
+
 package assig3_3;
 
 public class TomatoesThread extends Thread {
@@ -10,8 +12,10 @@ public class TomatoesThread extends Thread {
 
     @Override
     public void run() {
-        while(!isInterrupted())
+        //run the method addOneTomato() while the thread is not interrupted
+        while(!isInterrupted()) {
             machine.addOneTomato();
+        }
     }
 
 }

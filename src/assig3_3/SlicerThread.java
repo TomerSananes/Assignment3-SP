@@ -1,3 +1,5 @@
+//Roni Kimhi 315298182, Tomer Sananes 207698986
+
 package assig3_3;
 
 public class SlicerThread extends Thread {
@@ -10,8 +12,10 @@ public class SlicerThread extends Thread {
         this.saladNum = saladNum;
     }
 
+
     @Override
     public void run() {
+        //run the method sliceVegetables() while there is more salads to prepare
         while(machine.getNumOfPreparedSalads()!= saladNum)
             machine.sliceVegetables();
     }
