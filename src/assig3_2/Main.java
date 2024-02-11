@@ -1,3 +1,5 @@
+//Roni Kimhi 315298182, Tomer Sananes 207698986
+
 package assig3_2;
 
 public class Main {
@@ -20,8 +22,7 @@ public class Main {
         }else if (g2.getScore()>g1.getScore()){
             System.out.println("Player "+ g2.getName()+" wins with "+ g2.getScore()+" score! while player 1 has "+g1.getScore());
         }else{
-            System.out.println("There is a tie, both players finished with "+g1.getScore()+" score! (g2 is: "+g2.getScore());
+            System.out.println("There is a tie, both players finished with "+g1.getScore()+" score!");
         }
-
     }
 }

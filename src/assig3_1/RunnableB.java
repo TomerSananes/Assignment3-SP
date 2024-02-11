@@ -12,27 +12,17 @@ public class RunnableB implements Runnable{
         this.semaphoreC=semaphoreC;
     }
     @Override
-    public void run() {   //need to run at least 1 time
-        while(true){  //while(!interrupted)---another option and then in main do interrupt
+    public void run() {
+        while(true){
             try {
-                semaphoreB.acquire();  //default is 1
+                semaphoreB.acquire();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
             System.out.println("B");
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            semaphoreC.release();
-            while(semaphoreC.tryAcquire()){  //אם תפס C נתקע ו-B רץ
+            semaphoreC.release(); //give C an option to work, B and C race on the turn
+            while(semaphoreC.tryAcquire()){  //if C didn't catch his turn, B continue to work
                 System.out.println("B");
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
                 semaphoreC.release();
             }
         }

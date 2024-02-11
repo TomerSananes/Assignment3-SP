@@ -1,3 +1,5 @@
+//Roni Kimhi 315298182, Tomer Sananes 207698986
+
 package assig3_2;
 
 public class Judge extends Thread{
@@ -10,16 +12,11 @@ public class Judge extends Thread{
             while (!Thread.interrupted() && gamePlay.getNumOfRounds() <10) {
                 // Make the coin unavailable for a second
                 gamePlay.makeCoinAvail(false);
-                System.out.println(Thread.currentThread().getName()+" enter to sleep 1 sec");
                 Thread.sleep(1000);
-                System.out.println(Thread.currentThread().getName()+" after sleep 1 sec");
 
                 // Make the coin available for half a second
-                System.out.println(Thread.currentThread().getName()+" enter to sleep 0.5 sec");
                 gamePlay.makeCoinAvail(true);
                 Thread.sleep(500);
-                System.out.println(Thread.currentThread().getName()+" after sleep 0.5 sec");
-
             }
         }
 

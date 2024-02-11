@@ -1,9 +1,8 @@
 package assig3_1;
-
 import java.util.concurrent.Semaphore;
 
 public class Main {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         Semaphore semaphoreA=new Semaphore(1);
         Semaphore semaphoreB=new Semaphore(0);
         Semaphore semaphoreC=new Semaphore(0);
@@ -21,6 +20,4 @@ public class Main {
         t3.start();
 
     }
-
-
 }

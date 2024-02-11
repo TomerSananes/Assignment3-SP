@@ -16,31 +16,12 @@ public class RunnableC implements Runnable {
     public void run() {
         while (true){
             try {
-                semaphoreC.acquire();
+                semaphoreC.acquire(); //C makes his turn
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
             System.out.println("C");
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            semaphoreA.release();
-
+            semaphoreA.release(); //release A so it will work after C
         }
     }
-
-//if B can run 0 times
-//    public void run() {
-//        while(true){  //while(!interrupted)---another option and then in main do interrupt
-//            try {
-//                semaphoreB.acquire();  //default is 1
-//            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-//            }
-//            System.out.println("B");
-//            semaphoreA.release(); //add "coin" to B
-//        }
-//    }
 }
