@@ -1,31 +1,34 @@
+//Roni Kimhi 315298182, Tomer Sananes 207698986
+
 package assig3_2;
 
-public class Gamer extends Thread{
-    private int goodFlipCounter;
-    private GamePlay game;
+public class Gamer extends Thread {
+    private int goodFlipsCounter;
+    GamePlay gamePlay;
 
-    public Gamer(GamePlay game){
-        this.game = game;
+    public Gamer(GamePlay gamePlay) {
+        this.gamePlay = gamePlay;
     }
 
-    public void play(){
-        while(!Thread.interrupted() && game.getNumOfRounds()<10) {
-            if(game.flipCoin()){
-                goodFlipCounter++;
-            }
+    public synchronized void play() {
+        int i = 0;
+        while (!Thread.interrupted() && gamePlay.getNumOfRounds() < 10) {
+            i++;
             try {
+                if (gamePlay.flipCoin()) { //if flip a coin successfully, add one to good flips
+                    goodFlipsCounter++;
+                }
                 Thread.sleep(1000);
-            }catch (Exception e){
-
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
         }
     }
 
-    public int getScore(){
-        return goodFlipCounter;
+    public synchronized int getScore() {
+        return goodFlipsCounter;
     }
 
-    @Override
     public void run() {
         play();
     }

@@ -1,44 +1,37 @@
-package assig3_2;
+//Roni Kimhi 315298182, Tomer Sananes 207698986
 
+package assig3_2;
 import java.util.Random;
 
 public class GamePlay {
-    public boolean coin_available_;
-    private int rounds_counter_;
+    private boolean coin_available;
+    private int rounds_counter;
 
-    synchronized public void makeCoinAvailable(boolean val){
-        coin_available_= val;
-        if(coin_available_){
+    public synchronized void makeCoinAvail(boolean val) {
+        this.coin_available = val; //set if the coin available
+        if (val) { //if the coin is now available, wake up the threads that are waiting
             notifyAll();
         }
     }
 
-    synchronized public boolean flipCoin(){
-        while(!coin_available_) {
-            try {
-                System.out.println(Thread.currentThread().getName() + " is waiting for coin");
-                wait();
-            } catch (InterruptedException e) {
-                break;
-            }
+    public synchronized boolean flipCoin() throws InterruptedException {
+        while (!coin_available) {   //if the coin is not available-thread waits
+            System.out.println(Thread.currentThread().getName() + " is waiting for coin");
+            wait();
         }
+        //if the coin is available then make a turn and flip the coin
         System.out.println(Thread.currentThread().getName() + " is flipping coin");
-        coin_available_ = false;
-        rounds_counter_++;
-        int result = new Random().nextInt(0,2);
-        coin_available_= true;
+        this.coin_available = false; //after flipping now the coin is not available
+        this.rounds_counter++;
+        Random random = new Random();
+        int randomNumber = random.nextInt(2);
+        boolean returnResult = (randomNumber == 1);
+        this.coin_available = true;
         notifyAll();
-        return result==1;
+        return returnResult;
     }
 
-    synchronized public int getNumOfRounds(){
-        return rounds_counter_;
-    }
-
-    synchronized public void steCoinAvailable(boolean flag){
-        coin_available_ = flag;
-        if(coin_available_){
-            notifyAll();
-        }
+    public synchronized int getNumOfRounds() {
+        return this.rounds_counter;
     }
 }

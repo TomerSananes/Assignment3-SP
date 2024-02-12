@@ -1,23 +1,31 @@
+//Roni Kimhi 315298182, Tomer Sananes 207698986
+
 package assig3_2;
 
 public class Judge extends Thread{
-    private GamePlay game;
+    GamePlay gamePlay;
 
-    public Judge (GamePlay game){
-        this.game = game;
+    public Judge(GamePlay gamePlay){
+        this.gamePlay=gamePlay;
     }
-
-    @Override
-    public void run() {
-        while(!Thread.interrupted()){
-            try {
-                game.steCoinAvailable(false);
+    public void changeNotAvail() throws InterruptedException {
+            while (!Thread.interrupted() && gamePlay.getNumOfRounds() <10) {
+                // Make the coin unavailable for a second
+                gamePlay.makeCoinAvail(false);
                 Thread.sleep(1000);
-                game.steCoinAvailable(true);
+
+                // Make the coin available for half a second
+                gamePlay.makeCoinAvail(true);
                 Thread.sleep(500);
-            }catch (Exception e){
-                break;
             }
+        }
+
+    public void run() {
+        try {
+            changeNotAvail();
+        } catch (InterruptedException e) {
+            System.out.println("there was an Interruption");
         }
     }
 }
+
